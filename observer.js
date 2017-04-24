@@ -10,7 +10,7 @@ export function observer (componentClass) {
     componentClass.prototype.componentDidMount = function () {
       this.disposer = autorun(() => {
         this.render()
-        this.forceUpdate()
+        // this.forceUpdate()
       })
       originalDidMount.call(this)
     }
@@ -18,7 +18,7 @@ export function observer (componentClass) {
     componentClass.prototype.componentDidMount = function () {
       this.disposer = autorun(() => {
         this.render()
-        this.forceUpdate()
+        // this.forceUpdate()
       })
     }
   }
@@ -45,7 +45,7 @@ export function makeObserver (fn) {
     componentDidMount () {
       this.disposer = autorun(() => {
         this.render()
-        this.forceUpdate()
+        // this.forceUpdate()
       })
     }
     render () {
