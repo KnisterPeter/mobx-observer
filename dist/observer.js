@@ -25,36 +25,32 @@ var Component = void 0;
  */
 function observer(componentClass) {
   if (componentClass.prototype.hasOwnProperty('componentDidMount')) {
-    (function () {
-      var originalDidMount = componentClass.prototype.componentDidMount;
-      componentClass.prototype.componentDidMount = function () {
-        var _this = this;
+    var originalDidMount = componentClass.prototype.componentDidMount;
+    componentClass.prototype.componentDidMount = function () {
+      var _this = this;
 
-        this.disposer = (0, _mobx.autorun)(function () {
-          _this.render();
-          _this.forceUpdate();
-        });
-        originalDidMount.call(this);
-      };
-    })();
+      this.disposer = (0, _mobx.autorun)(function () {
+        _this.render();
+        // this.forceUpdate()
+      });
+      originalDidMount.call(this);
+    };
   } else {
     componentClass.prototype.componentDidMount = function () {
       var _this2 = this;
 
       this.disposer = (0, _mobx.autorun)(function () {
         _this2.render();
-        _this2.forceUpdate();
+        // this.forceUpdate()
       });
     };
   }
   if (componentClass.prototype.hasOwnProperty('componentWillUnmount')) {
-    (function () {
-      var originalUnmount = componentClass.prototype.componentWillUnmount;
-      componentClass.prototype.componentWillUnmount = function () {
-        this.disposer();
-        originalUnmount.call(this);
-      };
-    })();
+    var originalUnmount = componentClass.prototype.componentWillUnmount;
+    componentClass.prototype.componentWillUnmount = function () {
+      this.disposer();
+      originalUnmount.call(this);
+    };
   } else {
     componentClass.prototype.componentWillUnmount = function () {
       this.disposer();
@@ -74,7 +70,7 @@ function makeObserver(fn) {
     function Cl() {
       _classCallCheck(this, Cl);
 
-      return _possibleConstructorReturn(this, Object.getPrototypeOf(Cl).apply(this, arguments));
+      return _possibleConstructorReturn(this, (Cl.__proto__ || Object.getPrototypeOf(Cl)).apply(this, arguments));
     }
 
     _createClass(Cl, [{
@@ -84,7 +80,7 @@ function makeObserver(fn) {
 
         this.disposer = (0, _mobx.autorun)(function () {
           _this4.render();
-          _this4.forceUpdate();
+          // this.forceUpdate()
         });
       }
     }, {
